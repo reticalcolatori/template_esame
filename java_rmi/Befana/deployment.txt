@@ -1,0 +1,6 @@
+ESAME CHE RICHIEDEVA:
+
+- visualizza in maniera non ripetuta l'elenco di tutte le città dove verranno consegnate calze (ritorna un array di stringhe non prende in ingresso nulla)
+
+
+- conta le calze che verranno consegnate in quella città e in quella via e ritorna il conteggio (-1 se ci sono dei problemi durante l'esecuzione)

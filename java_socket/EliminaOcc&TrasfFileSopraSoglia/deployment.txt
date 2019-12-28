@@ -1,0 +1,5 @@
+javac TCP_Server.java 
+javac TCP_Client.java 
+
+java TCP_Server
+java TCP_Client localhost 54321
