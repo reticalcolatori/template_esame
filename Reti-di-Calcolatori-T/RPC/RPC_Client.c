@@ -11,7 +11,7 @@
 
 #define LENGTH 256
 
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 
 	CLIENT *cl;/*Gestore del trasporto*/
@@ -98,7 +98,7 @@ main(int argc, char *argv[])
 			    exit(1); 
 		    }
 		    //Eventuale errore di logica del programma
-		    if(*ris == -1) 
+		    if(*ris < 0) //Oppure != 0
 		    {  
 			    printf("Problemi nell'esecuzione\n");
 		    }
@@ -126,7 +126,7 @@ main(int argc, char *argv[])
 			    exit(1); 
 		    }
 		    //Eventuale errore di logica del programma
-		    if(*ris == -1) 
+		    if(*ris < 0) //Oppure != 0
 		    {  
 			    printf("Problemi nell'esecuzione\n");
 		    }
