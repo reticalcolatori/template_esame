@@ -10,5 +10,5 @@ client:
 	gcc RPC_Client.c RPC_xFile_clnt.c RPC_xFile_xdr.c -o client
 debug:
 	rpcgen RPC_xFile.x
-	gcc -d RPC_Server.c RPC_xFile_svc.c RPC_xFile_xdr.c -o server
-	gcc -d RPC_Client.c RPC_xFile_clnt.c RPC_xFile_xdr.c -o client
+	gcc -g RPC_Server.c RPC_xFile_svc.c RPC_xFile_xdr.c -o server
+	gcc -g RPC_Client.c RPC_xFile_clnt.c RPC_xFile_xdr.c -o client
