@@ -144,4 +144,6 @@ int main(int argc, char *argv[])
 	// Libero le risorse distruggendo il gestore di trasporto
 	clnt_destroy(cl);
 	printf("Fine Client \n");
+	
+	return 0;
 }
