@@ -1,3 +1,8 @@
+/************************************
+*     TCP_ServerThread.java		    *
+************************************/
+import java.io.*;
+import java.net.*;
 
 // Thread lanciato per ogni richiesta accettata
 class TCP_ServerThread extends Thread
@@ -46,14 +51,14 @@ class TCP_ServerThread extends Thread
 			try 
 			{
 				richiesta = inSock.readUTF();
-				if(richiesta == null)
-				{
-					System.out.println("EOF esco");
-					clientSocket.shutdownOutput();
-					clientSocket.shutdownInput();
-					clientSocket.close();
-					return;
-				}
+				// if(richiesta == null)
+				// {
+				// 	System.out.println("EOF esco");
+				// 	clientSocket.shutdownOutput();
+				// 	clientSocket.shutdownInput();
+				// 	clientSocket.close();
+				// 	return;
+				// }
 				System.out.println("Richiesta: " + richiesta);
 			}
 			catch(EOFException ex){
@@ -76,7 +81,9 @@ class TCP_ServerThread extends Thread
 			{
 				System.out.println("Problemi nella ricezione della richiesta: ");
 				e.printStackTrace();
-				// servo nuove richieste
+				clientSocket.shutdownOutput();
+				clientSocket.shutdownInput();
+				clientSocket.close();
 				return;
 			}
 
@@ -115,8 +122,8 @@ class TCP_ServerThread extends Thread
 				//....come primma
 			} 												
 		}
-	// qui catturo le eccezioni non catturate all'interno del while
-	// in seguito alle quali il server termina l'esecuzione
+		// qui catturo le eccezioni non catturate all'interno del while
+		// in seguito alle quali il server termina l'esecuzione
 		catch (Exception e) 
 		{
 			e.printStackTrace();
