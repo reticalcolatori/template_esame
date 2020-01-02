@@ -121,10 +121,12 @@ public class TCP_Client {
 					catch (EOFException e) {
 						System.out.println("Raggiunta la fine delle ricezioni, chiudo...");
 
-						// socket.close();
+						socket.shutdownInput();
+						socket.shutdownOutput();
+		      			socket.close();
 
 						System.out.println("TCP_Client: termino...");
-						System.exit(0);
+						return;
 					} catch (Exception e) {
 						System.out.println("Problemi nella ricezione della risposta, i seguenti: ");
 						e.printStackTrace();
