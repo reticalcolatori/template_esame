@@ -27,11 +27,10 @@
 //#define 
 
 /*** STRUTTURA DA INVIARE ATTRAVERO LA SOCKET ***/
-//struttura di esempio:
 typedef struct {
     int dati;
 }
-Request;
+RequestDatagram;
 
 //MAIN
 int main(int argc, char ** argv) {
@@ -42,7 +41,7 @@ int main(int argc, char ** argv) {
 
     //Variabili che cambiano
     int condition, ris;
-    Request req;
+    RequestDatagram req;
 
     /* CONTROLLO ARGOMENTI ---------------------------------- */
     if (argc != 3) {
@@ -129,7 +128,7 @@ int main(int argc, char ** argv) {
         /*RICHIESTA DI OPERAZIONE*/
         len = sizeof(servaddr);
 
-        nbyte_send = sendto(sd, & req, sizeof(Request), 0, (struct sockaddr * ) & servaddr, len);
+        nbyte_send = sendto(sd, & req, sizeof(RequestDatagram), 0, (struct sockaddr * ) & servaddr, len);
         if (nbyte_send < 0) {
             perror("Errore sendto");
             //Se questo invio fallisce il client torna all'inizio del ciclo
@@ -155,10 +154,11 @@ int main(int argc, char ** argv) {
         {
             ris = (int) ntohl(ris);
             printf("Esito: %i\n", ris);
-            if (ris == -1)
+
+            if (ris < 0)
                 printf("Operazione non eseguita\n");
-            if (ris == 0)
-                printf("Operazione eseguita con successo\n");
+            if (ris >= 0)
+                printf("Operazione eseguita con successo: %d\n", ris);
         }
 
         printf("Inserisci nuova richiesta, (ctrl+d per terminare): \n");

@@ -34,14 +34,15 @@
 #include <netdb.h>
 
 /*** #DEFINE **/
-#define DIM_BUFF 100# define max(a, b)((a) > (b) ? (a) : (b))
+#define DIM_BUFF 100
+#define max(a, b)((a) > (b) ? (a) : (b))
 
-/*** STRUTTURA DA INVIARE ATTRAVERO LA SOCKET **/
+/*** STRUTTURA DA INVIARE ATTRAVERO LA SOCKET DATAGRAM **/
 //struttura di esempi del Client Datagram
 typedef struct {
     int dati;
 }
-Request;
+RequestDatagram;
 
 /********************************************************/
 // Eventuale struttura dati del server
@@ -88,14 +89,15 @@ void gestore(int signo) {
 
 int main(int argc, char ** argv) {
     int listenfd, connfd, udpfd, nready, nread, maxfdp1;
-    char buff[DIM_BUFF]; //tipi di risposte
-    int qualcosa //tipi di wrapping per le risposte
     const int on = 1; //--> usata in setsockopt
     int len, nwrite, num, esito, port;
     struct sockaddr_in clientaddr, servaddr;
     struct hostent * hostTcp, * hostUdp;
     fd_set rset;
-    Request req;
+
+	char buff[DIM_BUFF]; //tipi di risposte
+
+    RequestDatagram req;
 
     /*** ----  Controllo argomenti ---- **/
     if (argc != 2) {
@@ -165,13 +167,13 @@ int main(int argc, char ** argv) {
     servaddr.sin_addr.s_addr = INADDR_ANY;
     servaddr.sin_port = htons(port);
 
-    if (setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, & on, sizeof(on)) < 0) {
+    if (setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0) {
         perror("set opzioni socket TCP");
         exit(2);
     }
     printf("Set opzioni socket TCP ok\n");
     if (bind(listenfd, (struct sockaddr * ) & servaddr, sizeof(servaddr)) < 0) {
-        error("bind socket TCP");
+        perror("bind socket TCP");
         exit(3);
     }
     printf("Bind socket TCP ok\n");
@@ -196,7 +198,7 @@ int main(int argc, char ** argv) {
     servaddr.sin_addr.s_addr = INADDR_ANY;
     servaddr.sin_port = htons(port);
 
-    if (setsockopt(udpfd, SOL_SOCKET, SO_REUSEADDR, & on, sizeof(on)) < 0) {
+    if (setsockopt(udpfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0) {
         perror("set opzioni socket UDP");
         exit(6);
     }
@@ -235,15 +237,33 @@ int main(int argc, char ** argv) {
             if (hostUdp == NULL) {
                 printf("client host information not found\n");
             } else {
-                printf("Operazione richiesta da: %s %i\n", hostUdp - > h_name, (unsigned) ntohs(clientaddr.sin_port));
+                printf("Operazione richiesta da: %s %i\n", hostUdp->h_name, (unsigned) ntohs(clientaddr.sin_port));
             }
 
             len = sizeof(struct sockaddr_in);
-            if (recvfrom(udpfd, & req, sizeof(Request), 0, (struct sockaddr * ) & clientaddr, & len) < 0) {
+            if (recvfrom(udpfd, & req, sizeof(RequestDatagram), 0, (struct sockaddr * ) & clientaddr, & len) < 0) {
                 perror("Recvfrom");
                 continue;
             }
-            printf("Richiesto dal client...\n");
+            
+			printf("Richiesto dal client...\n");
+			//Stampa della richiesta
+
+			//Se voglio fare un processo parallelo:
+			// int childPid = fork();
+
+
+			// if(childPid == 0){
+			// 	//Figlio
+			// }else if(childPid > 0){
+			// 	//Padre
+			// }else{
+			// 	//Errore
+			// 	//Errore nella fork:
+			// 	printf("Errore nella fork DATAGRAM: %d\n", childPid);
+			// }
+
+
             esito = -1;
 
             // Elaborazione....
@@ -271,12 +291,15 @@ int main(int argc, char ** argv) {
 
             /* SCHEMA UN PROCESSO FIGLIO PER OGNI OPERAZIONE CLIENTE */
             //figlio
-            if (fork() == 0) {
+
+			int childPid = fork();
+
+            if (childPid == 0) {
                 close(listenfd);
                 //chi mi fa richiesta
                 hostTcp = gethostbyaddr((char * ) & clientaddr.sin_addr, sizeof(clientaddr.sin_addr), AF_INET);
                 printf("Dentro il figlio pid=%d\n", getpid());
-                printf("Richiesta del client: %s", hostTcp);
+                printf("Richiesta del client: %s\n", hostTcp->h_addr_list[0]);
 
                 // CASO 1 (una socket per richiesta)--> logica applicativa del programma che si richiede <-- 
                 //Per una sola connessione decommentare il ciclo for
@@ -296,8 +319,15 @@ int main(int argc, char ** argv) {
                 close(connfd);
                 exit(0);
             } //fine figlio
+			else if(childPid > 0){
+				//Cose del padre.
+			}else{
+				//Errore nella fork:
+				printf("Errore nella fork STREAM: %d\n", childPid);
+			}
 
-            close(connfd);
+			close(connfd);
+            
         } //if listen
 
     } /* ciclo for della select */
