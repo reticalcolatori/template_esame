@@ -1,0 +1,6 @@
+Se occorre realizzare RMI con struttura dati -> Befana o NoleggioSCI
+
+Se gestione del filesystem -> FileSystemGestion
+
+All'interno del progetto è realizzata la funzione per ritorna la lista 
+dei nomi dei file che contengono due vocali consecutive nel nome

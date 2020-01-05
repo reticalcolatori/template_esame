@@ -1,0 +1,8 @@
+PER RPC:
+
+- se hai bisogno di template che neccessitano di tabella -> GestioneEventi
+(inserimento evento e acquisto biglietti)
+
+- se hai bisogno di lavorare con i file -> GestioneFile
+(conta le occorrenze di una linea in tutti i file di testo presenti nel direttorio corrente 
+funzionalità che ritorna i primi n file che iniziano con un certo prefisso)

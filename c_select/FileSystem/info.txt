@@ -1,0 +1,11 @@
+SOCKET DATAGRAM
+
+Elimina tutte le occorrenze di caratteri consonanti dal file specificato
+da parte dell'utente
+
+
+
+SOCKET STREAM
+
+Ispezione di primo livello sulla directory specificata dall'utente ed invio 
+di tutti i file per i quali il nome contiene sia una vocale sia una consonante

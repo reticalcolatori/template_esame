@@ -1,0 +1,4 @@
+PER SOCKET STREAM:
+
+- se abbiamo bisogno di template con struttura dati -> GESTIONEEVENTISOCKET
+- se dobbiamo lavorare su file system -> EliminaOcc&TrasfFileSopraSoglia
