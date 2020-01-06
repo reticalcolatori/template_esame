@@ -75,7 +75,7 @@ public class TCP_Client {
 
 			while ((richiesta = stdIn.readLine()) != null) {
 
-				if (richiesta.equalsIgnoreCase("U")) {
+				if (richiesta.equalsIgnoreCase("A")) {
 					try {
 						// Elaborazione richiesta e invio
 						outSock.writeUTF(richiesta);
@@ -137,7 +137,7 @@ public class TCP_Client {
 						continue;
 						// il client continua l'esecuzione riprendendo dall'inizio del ciclo
 					}
-				} else if (richiesta.equalsIgnoreCase("U")) {
+				} else if (richiesta.equalsIgnoreCase("B")) {
 
 				} else
 					System.out.println("Errore nella scelta...");
