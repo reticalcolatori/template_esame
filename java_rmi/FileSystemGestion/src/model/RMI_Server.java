@@ -1,6 +1,12 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.rmi.*;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.*;
@@ -138,8 +144,46 @@ public class RMI_Server extends UnicastRemoteObject implements RMI_interfaceFile
 
 	@Override
 	public int numerazione_righe(String fileName) throws RemoteException {
-		// TODO Auto-generated method stub
-		return 0;
+		int res = 0;
+		
+		File currFile = new File(fileName);
+		
+		if(currFile.exists() && currFile.canRead() && currFile.canWrite() && currFile.isFile()) {
+			
+			File tmpFile = new File("tmp.txt");
+			try {
+				
+				tmpFile.createNewFile();
+				PrintWriter fw = new PrintWriter(tmpFile);
+				BufferedReader br = new BufferedReader(new FileReader(currFile));
+				String currLine = null;
+				
+				while((currLine = br.readLine()) != null) {
+					res++;
+					
+					fw.print(res);
+					fw.print(' ');
+					fw.print(currLine);
+					fw.println();
+					
+				}
+				
+				fw.flush();
+				fw.close();
+				
+				tmpFile.renameTo(currFile);
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+				res = -1;
+				return res;
+			}
+			
+		} else {
+			res = -1;
+		}
+		
+		return res;
 	}
 	
 }

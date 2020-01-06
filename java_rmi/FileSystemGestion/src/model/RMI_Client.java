@@ -68,27 +68,23 @@ public class RMI_Client {
 
 				else if (service.equals("2")) {
 					// LOGICA APPLICATIVA
-					/*
-					String citta, via;
 					
-					System.out.println("Inserisci citta:");
-					citta = stdIn.readLine();
+					String nomeFile;
 					
-					System.out.println("Inserisci via:");
-					via = stdIn.readLine();
-					
-					
+					System.out.println("Inserisci nome file:");
+					nomeFile = stdIn.readLine();
+								
 					try {
-						int esito = serverRMI.visualizza_numero(citta, via);
+						int esito = serverRMI.numerazione_righe(nomeFile);
 						
 						if (esito > 0) {
-							System.out.println("Consegno a "+ citta + " in via " + via + " " + esito + " calze");
+							System.out.println("Ho numerato " + esito + " linee");
 						} else if (esito < 0) {
 							System.out.println("Impossibile completare l'operazione remota richiesta!");
 						}
 					} catch (RemoteException re) {
 						System.out.println("Errore Remoto: " + re.toString());
-					}*/
+					}
 				}
 
 				else {
