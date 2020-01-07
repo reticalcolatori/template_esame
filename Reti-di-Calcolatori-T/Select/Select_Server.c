@@ -306,13 +306,15 @@ int main(int argc, char ** argv) {
                 //for(;;)
                 //{
                 /***  CASO 2 (unica socket) --> logica applicativa del programma che si richiede <-- **/
-                printf("Richiesta, la seguente..");
-                while ((nread = read(connfd, buff, sizeof(buff))) > 0) {
-                    if ((nwrite = write(connfd, buff, nread)) < 0) {
-                        perror("write");
-                        exit(3);
-                    }
-                }
+                printf("%d)Richiesta, la seguente..\n", getpid());
+
+
+                // while ((nread = read(connfd, buff, sizeof(buff))) > 0) {
+                //     if ((nwrite = write(connfd, buff, nread)) < 0) {
+                //         perror("write");
+                //         exit(3);
+                //     }
+                // }
                 //} //for
 
                 printf("Figlio %i: chiudo connessione e termino\n", getpid());
