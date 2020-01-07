@@ -12,6 +12,8 @@ public class TCP_Server
 	private static final int PORT = 54321;
 
 	//Qui possibile tabella statica: da passare poi nel costruttore del thread figlio.
+	//public static final int TABLEDIM = 10;
+	//private static Riga[] tabella = new Riga[TABLEDIM];
 
 	public static void main (String[] args) throws IOException
 	{
@@ -94,7 +96,7 @@ public class TCP_Server
 	  			// delego il servizio ad un nuovo thread
 				try 
 				{
-					new TCP_ServerThread(clientSocket).start();
+					new TCP_ServerThread(clientSocket/*,tabella*/).start();
 				}
 				catch (Exception e) 
 				{

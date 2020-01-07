@@ -9,10 +9,13 @@ class TCP_ServerThread extends Thread
 {
 	private Socket clientSocket = null;
 
+	//private Riga[] tabella;
+
     //COSTRUTTORE - va opportunamente creato
-	public TCP_ServerThread(Socket clientSocket) 
+	public TCP_ServerThread(Socket clientSocket/*, Riga[] tabella */) 
 	{
 		this.clientSocket = clientSocket;
+		//this.tabella = tabella;
 	}
 
 	public void run() 
@@ -51,14 +54,6 @@ class TCP_ServerThread extends Thread
 			try 
 			{
 				richiesta = inSock.readUTF();
-				// if(richiesta == null)
-				// {
-				// 	System.out.println("EOF esco");
-				// 	clientSocket.shutdownOutput();
-				// 	clientSocket.shutdownInput();
-				// 	clientSocket.close();
-				// 	return;
-				// }
 				System.out.println("Richiesta: " + richiesta);
 			}
 			catch(EOFException ex){
@@ -87,7 +82,7 @@ class TCP_ServerThread extends Thread
 				return;
 			}
 
-			if(richiesta.equalsIgnoreCase("U"))
+			if(richiesta.equalsIgnoreCase("A"))
 			{																
 				String risposta = null;
 	    		// Elaborazione e invio della risposta
@@ -117,7 +112,7 @@ class TCP_ServerThread extends Thread
 					return;
 				}
 			}
-			else if(richiesta.equalsIgnoreCase("D"))
+			else if(richiesta.equalsIgnoreCase("B"))
 			{
 				//....come primma
 			} 												

@@ -19,8 +19,9 @@ int main(int argc, char *argv[])
 	
 	int *ris;
 	char input[LENGTH];
-	Operandi op;
-	int numero;
+
+	//Operandi op;
+	//int numero;
 	// Qui eventuali altre variabili di strutture utilizzate
 	// Input in;
 	// Aggiunta aggiunta;
@@ -36,7 +37,7 @@ int main(int argc, char *argv[])
 	server = argv[1];
 
 	// Possibilità di cambiare il protocollo di trasporto
-	cl = clnt_create(server, OPERAZIONIPROG, OPERAZIONIVERS, "udp");
+	cl = clnt_create(server, ESAMEPROG, ESAMEVERS, "udp");
 	if (cl == NULL)
 	{
 		clnt_pcreateerror(server);
@@ -46,7 +47,7 @@ int main(int argc, char *argv[])
 	// Interazione utente
 	printf("\nInserire: \n1 Funzione1 \n2 Funzione2 \n ^D per terminare: ");
 
-	while(gets(input))
+	while(gets(input) != NULL)
 	{
 		if(strcmp(input, "1")!=0 && strcmp(input, "2")!=0)
 		{
