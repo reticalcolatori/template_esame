@@ -28,15 +28,12 @@
 
 #define DIM_BUFF 100
 
-//#define LENGTH_FILE_NAME 20
 
 int main(int argc, char * argv[]) {
     int sd, nread, nwrite, port;
-    char ok, buff[DIM_BUFF];
     struct hostent * host;
     struct sockaddr_in serverAddress;
 
-    //char nome_file[LENGTH_FILE_NAME];
 
     /* CONTROLLO ARGOMENTI ---------------------------------- */
     if (argc != 3) {
@@ -75,11 +72,10 @@ int main(int argc, char * argv[]) {
     serverAddress.sin_port = htons(atoi(argv[2]));
 
     /* CORPO DEL CLIENT: */
-    /* ciclo di accettazione di richieste di file ------- */
 
-    printf("Richieste di file fino alla fine del file di input\n");
+    //printf("Richieste di file fino alla fine del file di input\n");
     printf("Qualsiasi tasto per procedere, EOF per terminare\n");
-    printf("-- specificare qui le richieste --- ");
+    //printf("-- specificare qui le richieste --- ");
 
     while (gets() != NULL) {
         /* CREAZIONE E CONNESSIONE SOCKET (BIND IMPLICITA) ----------------- */

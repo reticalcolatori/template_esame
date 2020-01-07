@@ -20,21 +20,11 @@
 
  #include <netdb.h>
 
- #define DIM_BUFF 100
- 
- #define LENGTH_FILE_NAME 20
+ #define DIM_BUFF 100 
 
- /********************************************************
- typedef struct
- {
-     struttura dati
- }
- Request;
- /********************************************************/
 
  int main(int argc, char * argv[]) {
-     int sd, nread, port;
-     char c, ok, nome_file[LENGTH_FILE_NAME];
+     int sd, nread, nwrite, port;
      struct hostent * host;
      struct sockaddr_in serverAddress;
 
@@ -89,11 +79,10 @@
      printf("Connect ok\n");
 
      /* CORPO DEL CLIENT: */
-     /* ciclo di accettazione di richieste di file ------- */
-
-     printf("Richieste di file fino alla fine del file di input\n");
+     
+     //printf("Richieste di file fino alla fine del file di input\n");
      printf("Qualsiasi tasto per procedere, EOF per terminare\n");
-     printf("---richieste ---: ");
+     //printf("---richieste ---: ");
 
      while (gets() != NULL) {
          /*
